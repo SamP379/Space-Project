@@ -1,28 +1,32 @@
 import requests
 from geopy.geocoders import Nominatim
 
+
 ISS_ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
 
 def get_iss_position(api_endpoint: str) -> tuple:
-    """Returns a tuple which holds the latitude and longitude of the International Space Station
-       RETURNS LONGTITUDE FIRST AND THEN LAT"""
+    """Returns a tuple which holds the latitude and longitude of the International Space Station"""
     try:
         response = requests.get(url = api_endpoint)
         content = response.json()
-        iss_position = content["iss_position"]
-        return (iss_position["longitude"], iss_position["latitude"])
+        iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
+        return iss_position
     except Exception as error:
         print(f"An error occurred: {error}")
         return None
 
 
-def get_coordinates(address : str) -> tuple:
+def get_position(address : str) -> tuple:
     """Returns a tuple which holds the latitude and longitude of an address given as a string"""
     geolocator = Nominatim(user_agent = "locator")
     location = geolocator.geocode(address)
-    coordinates = location[-1]
-    return coordinates
+    position = location[-1]
+    return position
+
+
+
+# Get the address of a given set of coordinates
 
 
 from math import cos, asin, sqrt, pi
@@ -44,5 +48,6 @@ def haversine_distance(coordinates1 : tuple, coordinates2 : tuple):
 
 
 
+# https://www.youtube.com/watch?app=desktop&v=5UWeOfdESZE&t=719s 
 
 # https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
