@@ -1,42 +1,8 @@
 """
 
-    
-    def __init__(self):
-        self._position = self.get_latest_position()
-        self._speed = self.get_latest_speed()
-    
-        
-    def get_latest_position(self):
-        try:
-            response = requests.get(url = ISS.API_ENDPOINT)
-            content = response.json()
-            iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
-            return iss_position
-        except Exception as error:
-            print(f"\nAn error occurred, unable to locate the ISS.\n")
-            return None
-    
-            
-    def update_position(self):
-        self._position = self.get_latest_position()
-    
-        
-    def get_position(self):
-        return self._position
-    
-        
-
-
-        
-    
-
-
-
-
-
-
 import time
 import distance
+import requests
 
 
 class ISS:
@@ -45,9 +11,24 @@ class ISS:
 
     
     def __init__(self):
-        self.position
+        self.position = self.get_new_position()
         self.timestamp
         self.speed = self.get_speed()
+    
+    
+    def get_new_position(self):
+        try:
+            response =  requests.get(url = ISS.ENDPOINT)
+            content = response.json()
+            iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
+            return iss_position
+        except Exception as error:
+            print("\nAn Error occured, unable to locate the ISS.\n)
+            return None
+        
+    
+    def was_found(self):
+        return self.position is not None and self.speed is not None
     
         
     def get_speed(self):
@@ -60,15 +41,6 @@ class ISS:
         else:
             return None
 
-
-
-
-
-        
-        
-    def was_found(self):
-        return self.position is not None and self.speed is not None
-    
         
     def display_status(self):
         if self.was_found():
