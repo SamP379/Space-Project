@@ -54,15 +54,22 @@ def locate_iss():
         # TODO "The International Space Station is somewhere over Ohio, USA"
         return iss_position
 
-        
-# def get_iss_speed():
-#     Get the position of the ISS
-#     Create a time variable of the seconds passed since the epoch
-#     Create a time delay of about 5 seconds
-#     Get the position of the ISS again
-#     Create a second time variable of the seconds passed since the epoch
 
- 
+def get_iss_speed():
+    iss_position1 = get_iss_position(ISS_ENDPOINT)
+    timestamp1 = time.time()
+    time.sleep(5)
+    iss_position2 = get_iss_position(ISS_ENDPOINT)
+    timestamp2 = time.time()
+    if iss_position1 is None or iss_position2 is None:
+        return None
+    else:
+        distancekm = haversine_distance(iss_position1, iss_position2)
+        time_secs = timestamp2 - timestamp1
+        speed = distancekm / time_secs
+        return round(speed)
+
+
 def haversine_distance(position1 : tuple, position2 : tuple):
     # https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
     lat1 = position1[0]
@@ -89,7 +96,7 @@ def find_distance():
         print("\nCalculating distance...")
         time.sleep(4)
         distance = haversine_distance(user_position, iss_position)
-        print(f"The International Space Station is about {distance} km from you\n")
-        
-
-find_distance()
+        speed = get_iss_speed()
+        print(f"The International Space Station is about {distance} km from you")
+        if speed is not None:
+            print(f"It is travelling at a speed of about {speed} km per second\n")
