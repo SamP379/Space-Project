@@ -1,102 +1,31 @@
+"""import requests
 
 
-import time
-import requests
-from math import cos, asin, sqrt, pi
-from geopy.geocoders import Nominatim
+class ISS:
 
+    API_ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
-ISS_ENDPOINT = "http://api.open-notify.org/iss-now.json"
-
-
-def get_address_position(address : str):
-    geolocator = Nominatim(user_agent = "locator")
-    location = geolocator.geocode(address)
-    if location is None:
-        return None
-    position = location[-1]
-    return position
-
-
-def locate_user():
-    print("") # TODO Fix this bug
-    user_address = input("Enter your address: ")
-    print("Locating your position...")
-    time.sleep(4)
-    user_position = get_address_position(user_address)
-    if user_position is None:
-        print("Unable to find your position.")
-        return None
-    else:
-        print(f"Your position is: {user_position}")
-        return user_position
     
+    def __init__(self):
+        self._position = self.get_latest_position()
+    
+        
+    def get_latest_position(self):
+        try:
+            response = requests.get(url = ISS.API_ENDPOINT)
+            content = response.json()
+            iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
+            return iss_position
+        except Exception as error:
+            print(f"\nAn error occurred, unable to locate the ISS.\n")
+            return None
+    
+            
+    def update_position(self):
+        self._position = self.get_latest_position()
+    
+        
+    def get_position(self):
+        return self._position
 
-def get_iss_position(endpoint: str) -> tuple:
-    try:
-        response = requests.get(url = endpoint)
-        content = response.json()
-        iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
-        return iss_position
-    except Exception as error:
-        print(f"An error occurred, unable to locate the ISS.")
-        return None
-
-
-def locate_iss():
-    print("\nLocating the position of the International Space Station...")
-    time.sleep(4)
-    iss_position = get_iss_position(ISS_ENDPOINT)
-    if iss_position is None:
-        return None
-    else:
-        print(f"The position of the International Space Station is: {iss_position}")
-        # TODO "The International Space Station is somewhere over Ohio, USA"
-        return iss_position
-
-
-def get_iss_speed():
-    iss_position1 = get_iss_position(ISS_ENDPOINT)
-    timestamp1 = time.time()
-    time.sleep(5)
-    iss_position2 = get_iss_position(ISS_ENDPOINT)
-    timestamp2 = time.time()
-    if iss_position1 is None or iss_position2 is None:
-        return None
-    else:
-        distancekm = haversine_distance(iss_position1, iss_position2)
-        time_secs = timestamp2 - timestamp1
-        speed = distancekm / time_secs
-        return round(speed)
-
-
-def haversine_distance(position1 : tuple, position2 : tuple):
-    # https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
-    lat1 = position1[0]
-    lon1 = position1[1]
-    lat2 = position2[0]
-    lon2 = position2[1]    
-    r = 6371 
-    p = pi / 180
-    a = 0.5 - cos((lat2-lat1)*p)/2 + cos(lat1*p) * cos(lat2*p) * (1-cos((lon2-lon1)*p))/2
-    return round(2 * r * asin(sqrt(a)))
-
-
-def find_distance():
-
-    user_position = locate_user()
-    if user_position is None:
-        return
-
-    iss_position = locate_iss()
-    if iss_position is None:
-        return
-
-    else:
-        print("\nCalculating distance...")
-        time.sleep(4)
-        distance = haversine_distance(user_position, iss_position)
-        speed = get_iss_speed()
-        print(f"The International Space Station is about {distance} km from you")
-        if speed is not None:
-            print(f"It is travelling at a speed of about {speed} km per second\n")
+"""
