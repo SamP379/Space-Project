@@ -1,12 +1,9 @@
 
 
-
-
-
+import time
 import requests
 from math import cos, asin, sqrt, pi
 from geopy.geocoders import Nominatim
-
 
 
 ISS_ENDPOINT = "http://api.open-notify.org/iss-now.json"
@@ -25,6 +22,7 @@ def locate_user():
     print("") # TODO Fix this bug
     user_address = input("Enter your address: ")
     print("Locating your position...")
+    time.sleep(4)
     user_position = get_address_position(user_address)
     if user_position is None:
         print("Unable to find your position.")
@@ -47,6 +45,7 @@ def get_iss_position(endpoint: str) -> tuple:
 
 def locate_iss():
     print("\nLocating the position of the International Space Station...")
+    time.sleep(4)
     iss_position = get_iss_position(ISS_ENDPOINT)
     if iss_position is None:
         return None
@@ -56,6 +55,14 @@ def locate_iss():
         return iss_position
 
         
+# def get_iss_speed():
+#     Get the position of the ISS
+#     Create a time variable of the seconds passed since the epoch
+#     Create a time delay of about 5 seconds
+#     Get the position of the ISS again
+#     Create a second time variable of the seconds passed since the epoch
+
+ 
 def haversine_distance(position1 : tuple, position2 : tuple):
     # https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
     lat1 = position1[0]
@@ -80,48 +87,9 @@ def find_distance():
 
     else:
         print("\nCalculating distance...")
+        time.sleep(4)
         distance = haversine_distance(user_position, iss_position)
         print(f"The International Space Station is about {distance} km from you\n")
-
-        
         
 
-
-
-
-
-
-
-
-
-
-
-# # Get the address of a given set of coordinates
-# def get_address(position : str):
-#     geolocator = Nominatim(user_agent = "locator")
-#     location = geolocator.reverse(position)
-#     address = location.address
-#     return address
-
-
-
-
-
-
-
-"""
-
-Sample output:
-
-    Enter your address: 47 Chipping Vale, Emerson Valley, Milton Keynes
-    Locating your position...
-    Your position is: (53.234, -723434)
-    
-    Locating the position of the International Space Station...
-    The position of the International Space Station is: (3.1224, -1.1324)
-    The International Space Station is somewhere over Ohio, USA
-    
-    Calculating distance...
-    The International Space Station is about 4320 KM from you
-
-"""
+find_distance()
