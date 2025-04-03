@@ -1,11 +1,4 @@
 """
-import time
-import requests
-
-
-class ISS:
-
-    API_ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
     
     def __init__(self):
@@ -32,19 +25,10 @@ class ISS:
         return self._position
     
         
-    def get_latest_speed(self):
-        position1 = self.get_latest_position()
-        timestamp1 = time.time()
-        time.sleep(5)
-        position2 = self.get_latest_position()
-        timestamp2 = time.time()
-        if position1 or position2 is None:
-            return None
-        else:
-            distance_km = distance.haversine(iss_position1, iss_position2)
-            time_secs = timestamp2 - timestamp1
-            speed = distance_km / time_secs
-            return round(speed)
+
+
+        
+    
 
 
 
@@ -59,10 +43,28 @@ class ISS:
 
     API_ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
+    
     def __init__(self):
         self.position
-        self.speed
+        self.timestamp
+        self.speed = self.get_speed()
     
+        
+    def get_speed(self):
+        new_iss = ISS()
+        if self.was_found() and new_iss.was_found():
+            distance_km = distance.haversine(self.position, new_iss.get_position())
+            time_secs = new_iss.get_timestamp() - self.timestamp
+            speed = distance_km / time_secs
+            return round(speed)
+        else:
+            return None
+
+
+
+
+
+        
         
     def was_found(self):
         return self.position is not None and self.speed is not None
@@ -76,17 +78,5 @@ class ISS:
             print(f"It is moving at a speed of about {self.speed} km per second")
         else:
             print("Unable to locate the ISS")
-    
-            
-    def distance_between(self, second_position):
-        if self.was_found():
-            print("Calculating distance...")
-            time.sleep(3)
-            distance_km = distance.haversine(self.position, second_position)
-            print(f"The International Space Station is about {distance_km} km from you")
-        else:
-            print("Unable to locate the ISS)
 
-
-    
 """

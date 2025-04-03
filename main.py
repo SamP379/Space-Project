@@ -17,8 +17,9 @@ def main():
 
     if iss.was_found():
         iss.display_status()
-        distance = self.calculate_distance()
-        iss.distance_between()
+        distance_km = distance.haversine(iss.position, user_position)
+        print("Calculating distance...")
+        print("The International Space Station is about {distance} km from you)
     else:
         print("Unable to locate the ISS")
             
