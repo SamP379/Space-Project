@@ -2,32 +2,17 @@
 """
 
 
-
-import time
-import distance
-
-
-
-
 def main():
 
-    user_position = (52.003854, -0.776971)
-
+    user_address = input("Enter your address: ")
+    user = User(user_address)
+    user.display_position()
+    
     iss = ISS()
+    iss.display_status()
+   
 
-    if iss.was_found():
-        iss.display_status()
-        distance_km = distance.haversine(iss.position, user_position)
-        print("Calculating distance...")
-        print("The International Space Station is about {distance} km from you)
-    else:
-        print("Unable to locate the ISS")
-            
-
-         
 """
-
-
 
 
 # Enter your address: 47 Chipping Vale, Emerson Valley, Milton Keynes
@@ -37,7 +22,6 @@ def main():
 # Locating the position of the International Space Station...
 # The position of the International Space Station is: (3.1224, -1.1324)
 # The International Space Station is somewhere over Ohio, USA
-# It is moving at a speed of about 7 km per second
      
 # Calculating distance...
 # The International Space Station is about 4320 KM from you
