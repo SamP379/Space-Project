@@ -32,3 +32,8 @@ resembling a menu options, so if the user enters something you provide
 the language model with the menu options and it picks the menu option
 most resembling what the user entered. Maybe use AI to make the project
 more intersting.
+
+
+
+Bugs:
+APOD image is too zoomed in
