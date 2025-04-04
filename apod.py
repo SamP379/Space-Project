@@ -2,6 +2,7 @@
 
 
 import os
+import cv2
 import dotenv
 import requests
 
@@ -15,8 +16,8 @@ class APOD:
     
     def __init__(self):
         self.was_loaded = False
-        self.file_path = "apod.jpg"
         self.url = self.get_url()
+        self.file_path = "apod.jpg"
         self.save_image()
 
         
@@ -39,19 +40,18 @@ class APOD:
                 image_bytes = response.content
                 with open(self.file_path, mode = "wb") as file:
                     file.write(image_bytes)
+                    self.was_loaded = True
             except Exception as error:
                 print("An error occured: {error})
             
 
     def display(self):
         if self.was_loaded:
-            pass
+            image = cv2.imread(self.file_path)
+            cv2.imshow("APOD", image)
+            cv2.waitKey(0)
         else:
             print("Unable to load image")
 
-
-apod = APOD()        
-apod.display() 
-
-
+       
 """
