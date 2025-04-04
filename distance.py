@@ -1,5 +1,5 @@
-"""
 
+from math import cos, asin, sqrt, pi
 
 def haversine(position1 : tuple, position2 : tuple):
     # https://stackoverflow.com/questions/27928/calculate-distance-between-two-latitude-longitude-points-haversine-formula
@@ -14,4 +14,3 @@ def haversine(position1 : tuple, position2 : tuple):
 
     
         
-"""
