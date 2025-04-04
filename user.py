@@ -10,7 +10,7 @@ class User:
     def was_found(self):
         return self.position is not None
     
-    def display_positon(self):
+    def display_position(self):
         print("Locating your position...")
         time.sleep(4)
         if self.was_found():

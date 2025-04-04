@@ -48,7 +48,7 @@ class ISS:
         
     def display_status(self):
         if self.was_found():
-            print("Locating the position of the International Space Station...")
+            print("\nLocating the position of the International Space Station...")
             time.sleep(4)
             print(f"The position of the International Space Station is: {self.position}")
             print(f"It is moving at a speed of about {self.speed} km per second")
