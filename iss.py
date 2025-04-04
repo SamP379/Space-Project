@@ -1,6 +1,3 @@
-"""
-
-
 import time
 import distance
 import requests
@@ -24,7 +21,7 @@ class ISS:
             iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
             return iss_position
         except Exception as error:
-            print(f"An Error occured: {error}")
+            print(f"An Error occured: {error}") # TODO Change this when code is finished
             return None
     
             
@@ -57,8 +54,3 @@ class ISS:
             print(f"It is moving at a speed of about {self.speed} km per second")
         else:
             print("Unable to locate the ISS")
-            
-            
-
-            
-"""
