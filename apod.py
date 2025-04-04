@@ -1,6 +1,3 @@
-"""
-
-
 import os
 import cv2
 import dotenv
@@ -21,7 +18,7 @@ class APOD:
         self.save_image()
 
         
-    def get_url():
+    def get_url(self):
         payload = {"api_key" : APOD.API_KEY}
         try:
             response = requests.get(url = APOD.ENDPOINT, params = payload)
@@ -33,7 +30,7 @@ class APOD:
         return None
     
         
-    def save_image():
+    def save_image(self):
         if self.url is not None:
             try:
                 response = requests.get(url = self.url)
@@ -42,7 +39,7 @@ class APOD:
                     file.write(image_bytes)
                     self.was_loaded = True
             except Exception as error:
-                print("An error occured: {error})
+                print("An error occured: {error}")
             
 
     def display(self):
@@ -52,6 +49,3 @@ class APOD:
             cv2.waitKey(0)
         else:
             print("Unable to load image")
-
-       
-"""
