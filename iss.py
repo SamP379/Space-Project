@@ -1,11 +1,17 @@
+"""
+
+
+
+
 import time
-import distance
 import requests
+import geo_utils
 
 
 class ISS:
 
-    ENDPOINT = "http://api.open-notify.org/iss-now.json"
+    #ENDPOINT = "http://api.open-notify.org/iss-now.json"
+    ENDPOINT = "http://api.open-notiasdsfy.org/iss-now.json"
 
     
     def __init__(self):
@@ -29,7 +35,7 @@ class ISS:
         new_position = self.get_new_position()
         new_timestamp = time.time()
         if self.position is not None and new_position is not None:
-            distance_km = distance.haversine(self.position, new_position)
+            distance_km = geo_utils.haversine_distance(self.position, new_position)
             time_secs = new_timestamp - self.timestamp
             speed_km = distance_km / time_secs
             return round(speed_km)
@@ -48,9 +54,23 @@ class ISS:
         
     def display_status(self):
         if self.was_found():
-            print("\nLocating the position of the International Space Station...")
+            print("Locating the position of the International Space Station...")
             time.sleep(4)
             print(f"The position of the International Space Station is: {self.position}")
             print(f"It is moving at a speed of about {self.speed} km per second")
         else:
             print("Unable to locate the ISS")
+    
+            
+    def display_distance(self, compare_position : tuple):
+        if self.was_found() and compare_position is not None:
+            print("Calculating distance...")
+            time.sleep(4)
+            distance = geo_utils.haversine_distance(self.position, compare_position)
+            print(f"The International Space Station is about {distance} km from you")
+        else:
+            print("Unable to locate both positions")
+            
+
+            
+"""
