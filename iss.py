@@ -1,8 +1,3 @@
-"""
-
-
-
-
 import time
 import requests
 import geo_utils
@@ -70,7 +65,3 @@ class ISS:
             print(f"The International Space Station is about {distance} km from you")
         else:
             print("Unable to locate both positions")
-            
-
-            
-"""
