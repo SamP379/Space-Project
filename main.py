@@ -1,10 +1,5 @@
-"""
-
-
 from iss import ISS
 from user import User
-
-
 
 
 def iss_routine():
@@ -13,6 +8,4 @@ def iss_routine():
     user = User(user_address)
     user.display_position()
     iss.display_status()
-    iss.display_distance(user.get_position())
- 
-"""   
+    iss.display_distance(user.get_position())  
