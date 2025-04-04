@@ -1,3 +1,6 @@
+"""
+
+
 import time
 import distance
 import requests
@@ -24,6 +27,18 @@ class ISS:
             print(f"An Error occured: {error}")
             return None
     
+            
+    def get_speed(self):
+        new_position = self.get_new_position()
+        new_timestamp = time.time()
+        if self.position is not None and new_position is not None:
+            distance_km = distance.haversine(self.position, new_position)
+            time_secs = new_timestamp - self.timestamp
+            speed_km = distance_km / time_secs
+            return round(speed_km)
+        else:
+            return None
+    
 
     def update_position(self):
         self.position = self.get_new_position()
@@ -34,23 +49,16 @@ class ISS:
         return self.position is not None and self.speed is not None
     
         
-    def get_speed(self):
-        new_position = self.get_new_position()
-        new_timestamp = time.time()
-        if self.position is not None and new_position is not None:
-            distance_km = distance.haversine(self.position, new_position)
-            time_secs = new_timestamp - self.timestamp
-            speed = distance_km / time_secs
-            return round(speed)
-        else:
-            return None
-
-        
     def display_status(self):
         if self.was_found():
             print("Locating the position of the International Space Station...")
-            time.sleep(3)
+            time.sleep(4)
             print(f"The position of the International Space Station is: {self.position}")
             print(f"It is moving at a speed of about {self.speed} km per second")
         else:
             print("Unable to locate the ISS")
+            
+            
+
+            
+"""
