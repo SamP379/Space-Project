@@ -8,18 +8,22 @@ import requests
 
 class APOD:
 
+    dotenv.load_dotenv()
+    API_KEY = os.getenv("NASA_API_KEY") 
+    ENDPOINT = "https://api.nasa.gov/planetary/apod"
+
+    
     def __init__(self):
-        dotenv.load_dotenv()
+        self.was_loaded = False
         self.file_path = "apod.jpg"
-        self.api_key = os.getenv("NASA_API_KEY") 
-        self.endpoint = "https://api.nasa.gov/planetary/apod"
-        self.image_url = self.get_image_url()
+        self.url = self.get_url()
+        self.save_image()
 
         
-    def get_image_url():
-        payload = {"api_key" : self.api_key}
+    def get_url():
+        payload = {"api_key" : APOD.API_KEY}
         try:
-            response = requests.get(url = self.endpoint, params = payload)
+            response = requests.get(url = APOD.ENDPOINT, params = payload)
             content = response.json()
             image_url = content["hdurl"]
             return image_url
@@ -29,10 +33,25 @@ class APOD:
     
         
     def save_image():
-        response = requests.get(url = self.image_url)
-        image_bytes = response.content
-        with open(self.file_path, mode = "wb") as file:
-            file.write(image_bytes)
+        if self.url is not None:
+            try:
+                response = requests.get(url = self.url)
+                image_bytes = response.content
+                with open(self.file_path, mode = "wb") as file:
+                    file.write(image_bytes)
+            except Exception as error:
+                print("An error occured: {error})
+            
+
+    def display(self):
+        if self.was_loaded:
+            pass
+        else:
+            print("Unable to load image")
+
+
+apod = APOD()        
+apod.display() 
 
 
 """
