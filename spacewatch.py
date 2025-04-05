@@ -1,17 +1,17 @@
-"""
 
+import iss
+from apod import APOD
     
 class SpaceWatch:
 
     def __init__(self):
-        self.menu_choice = None
-        self.commands = {}
-    
+        self.menu_choice = None 
+        self.apod = APOD()
         
+
     def display_menu(self):
-        print("1. Track the ISS")
-        print("2. How many people are in space?")
-        print("3. Timeline of space exploration)
+        print("\n1. Track the ISS")
+        print("2. Get NASA's Astronomy Picture of the Day\n")
     
         
     def get_menu_choice(self):
@@ -20,15 +20,14 @@ class SpaceWatch:
     
         
     def handle_menu_choice(self):
-        if self.choice == "track the iss":
+        if self.menu_choice == "iss":
             iss.iss_routine()
+        elif self.menu_choice == "apod":
+            self.apod.display()
         
     
     def main_loop(self):
-        self.display_menu()
-        self.get_menu_choice()
-        self.handle_menu_choice()
-
-
-
-"""
+        while True:
+            self.display_menu()
+            self.get_menu_choice()
+            self.handle_menu_choice()
