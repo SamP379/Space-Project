@@ -1,14 +1,12 @@
-"""
-
 import time
 import requests
 import geo_utils
+from user import User
 
 
 class ISS:
 
-    #ENDPOINT = "http://api.open-notify.org/iss-now.json"
-    ENDPOINT = "http://api.open-notiasdsfy.org/iss-now.json"
+    ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
     
     def __init__(self):
@@ -24,7 +22,6 @@ class ISS:
             iss_position = (float(content["iss_position"]["latitude"]), float(content["iss_position"]["longitude"]))
             return iss_position
         except Exception as error:
-            print(f"An Error occured: {error}") # TODO Change this when code is finished
             return None
     
             
@@ -51,7 +48,7 @@ class ISS:
         
     def display_status(self):
         if self.was_found():
-            print("Locating the position of the International Space Station...")
+            print("\nLocating the position of the International Space Station...")
             time.sleep(4)
             print(f"The position of the International Space Station is: {self.position}")
             print(f"It is moving at a speed of about {self.speed} km per second")
@@ -61,10 +58,10 @@ class ISS:
             
     def display_distance(self, compare_position : tuple):
         if self.was_found() and compare_position is not None:
-            print("Calculating distance...")
+            print("\nCalculating distance...")
             time.sleep(4)
             distance = geo_utils.haversine_distance(self.position, compare_position)
-            print(f"The International Space Station is about {distance} km from you")
+            print(f"The International Space Station is about {distance} km from you\n")
         else:
             print("Unable to locate both positions")
 
@@ -72,10 +69,9 @@ class ISS:
                
 def iss_routine():
     iss = ISS()
+    print("")
     user_address = input("Enter your address: ")
     user = User(user_address)
     user.display_position()
     iss.display_status()
     iss.display_distance(user.get_position())  
-
-"""
