@@ -1,39 +1,17 @@
-# iss_locator
+# SpaceWatch
 
-AlphaSpace
+  
 
-Description
+## A program to access space data using APIS
 
-- The project is a program that lets you access lots of cool data
-about space and stuff, from apis and from web scraping. For example
-locating the iss, getting NASA APOD, and more.
+SpaceWatch is a program built with Python that allows the user to access NASA's astronomy picture of the day using NASA's APOD API, and to track the international space station using open notify's iss API.
 
+The user can view the Astronomy Picture of the Day and view the distance of the iss from any location on earth by entering an address which is then converted to latitude and longitude.
 
-Content:
-
-- locate the iss
-- Get NASA APOD
-- Find out how many people are in space
-- Get Mars rover photos
-- Get book recommendations about space
-
-
-APIS:
-
-- Moon api
-
-- https://nordicapis.com/11-space-apis-because-space-is-neat/ 
+## Demo
+![alt text](demo.png)
 
 
 
-
-Use natural language processing to check if the user entered something
-resembling a menu options, so if the user enters something you provide
-the language model with the menu options and it picks the menu option
-most resembling what the user entered. Maybe use AI to make the project
-more intersting.
-
-
-
-Bugs:
-APOD image is too zoomed in
+## Instructions
+Clone the git repo and run main.py
