@@ -5,6 +5,9 @@ import requests
 
 
 class APOD:
+    """A class to represent an Astronomy Picture of The Day. An APOD is a daily
+    picture released by NASA, and can be obtained using the APOD API. This class
+    represents the current APOD."""
 
     dotenv.load_dotenv()
     API_KEY = os.getenv("NASA_API_KEY") 
@@ -19,6 +22,7 @@ class APOD:
 
         
     def get_url(self):
+        """Gets the url of the apod image from NASA's APOD api"""
         payload = {"api_key" : APOD.API_KEY}
         try:
             response = requests.get(url = APOD.ENDPOINT, params = payload)
@@ -31,6 +35,7 @@ class APOD:
     
         
     def save_image(self):
+        """Gets the apod image if the url was found and writes it to a file"""
         if self.url is not None:
             try:
                 response = requests.get(url = self.url)
@@ -43,6 +48,7 @@ class APOD:
             
 
     def display(self):
+        """Displays the apod image using the cv2 library, if it was loaded"""
         if self.was_loaded:
             image = cv2.imread(self.file_path)
             cv2.imshow("APOD", image)
