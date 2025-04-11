@@ -3,7 +3,6 @@ import requests
 import geo_utils
 
 
-
 class ISS:
     """A class to handle tracking the position and speed of the International Space Station."""
 
