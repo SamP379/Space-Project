@@ -1,16 +1,20 @@
-# SpaceWatch
+# ISS Tracker
 
   
+## A Python program to track the International Space Station
 
-## A program to access space data using APIS
+ISS Tracker is a Python program to track the international space station and to
+compare it's position to any other position on Earth. 
 
-SpaceWatch is a program built with Python that allows the user to access NASA's astronomy picture of the day using NASA's APOD API, and to track the international space station using open notify's iss API.
+The project was a good chance to learn about Python's geopy library, which makes
+it easy to locate the coordinates of an address by abstracting the API services of 
+various geolocation services, such as Google Maps and Nominatim. The project was 
+also an opportunity to learn about latitude and longitude and calculating the 
+distance between sets of two coordinates using the haversine forumla. 
 
-The user can view the Astronomy Picture of the Day and view the distance of the iss from any location on earth by entering an address which is then converted to latitude and longitude.
 
 ## Demo
 ![alt text](images/demo.png)
-
 
 
 ## Instructions
