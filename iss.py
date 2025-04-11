@@ -1,10 +1,11 @@
 import time
 import requests
 import geo_utils
-from user import User
+
 
 
 class ISS:
+    """A class to handle tracking the position and speed of the International Space Station."""
 
     ENDPOINT = "http://api.open-notify.org/iss-now.json"
 
@@ -63,15 +64,4 @@ class ISS:
             distance = geo_utils.haversine_distance(self.position, compare_position)
             print(f"The International Space Station is about {distance} km from you\n")
         else:
-            print("Unable to locate both positions")
-
-
-               
-def iss_routine():
-    iss = ISS()
-    print("")
-    user_address = input("Enter your address: ")
-    user = User(user_address)
-    user.display_position()
-    iss.display_status()
-    iss.display_distance(user.get_position())  
+            print("Unable to locate both positions") 
